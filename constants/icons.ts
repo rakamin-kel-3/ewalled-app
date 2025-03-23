@@ -1,3 +1,4 @@
+import chevrondown from "@/assets/icons/chevrondown.png";
 import eye from "@/assets/icons/eye.png";
 import home from "@/assets/icons/home.png";
 import person from "@/assets/icons/person.png";
@@ -12,4 +13,5 @@ export default {
   eye,
   send,
   plus,
+  chevrondown,
 };
