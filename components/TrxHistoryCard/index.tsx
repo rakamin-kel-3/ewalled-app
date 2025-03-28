@@ -14,7 +14,7 @@ const TrxHistoryCard = ({
   type: string;
   date: string;
   inout: string;
-  amount: string;
+  amount: number;
 }) => {
   const getFormattedDate = (inp: string) => {
     const date = new Date(inp);

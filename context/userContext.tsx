@@ -1,9 +1,18 @@
 // contexts/UserContext.js
 import { coreApi } from "@/api";
 import { me } from "@/api/model/user";
+import { User } from "@/model/user";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-const defaultValue = {
+type UserContextType = {
+  isAuthenticated: boolean;
+  userInfo: User | null;
+  login: (token: string) => void;
+  logout: () => void;
+  fetchUser: () => void;
+};
+
+const defaultValue: UserContextType = {
   isAuthenticated: false,
   userInfo: null,
   login: (token: string) => {},
@@ -15,7 +24,7 @@ const UserContext = createContext(defaultValue);
 
 export const UserWrapper = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userInfo, setUserInfo] = useState(null);
+  const [userInfo, setUserInfo] = useState<User | null>(null);
   const [token, setToken] = useState("");
 
   const login = (newToken: string) => {
