@@ -16,14 +16,25 @@ const TrxHistoryCard = ({
   inout: string;
   amount: string;
 }) => {
+  const getFormattedDate = (inp: string) => {
+    const date = new Date(inp);
+    return date.toLocaleString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
   return (
     <View className="flex flex-row justify-between items-center">
       <View className="flex flex-row items-center gap-x-3">
         <Image source={images} />
         <View>
           <Text className="text-lg">{name}</Text>
-          <Text>{type}</Text>
-          <Text className="text-sm text-[#939393]">{date}</Text>
+          <Text>{type === "transfer" ? "Transfer" : "Top Up"}</Text>
+          <Text className="text-sm text-[#939393]">
+            {getFormattedDate(date)}
+          </Text>
         </View>
       </View>
       <View>

@@ -13,7 +13,11 @@ export const transfer = (receipentAccountNo, amount, notes) => {
   return coreApi.post("/transactions/transfer", param);
 };
 
-export const topup = (paymentMethod, amount, notes) => {
+export const topup = (
+  paymentMethod: string,
+  amount: number,
+  notes?: string
+) => {
   const param = {
     paymentMethod: paymentMethod,
     amount: amount,
