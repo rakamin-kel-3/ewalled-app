@@ -5,6 +5,8 @@ import TrxHistoryCard from "@/components/TrxHistoryCard";
 import icons from "@/constants/icons";
 import images from "@/constants/images";
 import { useUserContext } from "@/context/userContext";
+import { Account } from "@/model/account";
+import { Transaction } from "@/model/transaction";
 import { useIsFocused } from "@react-navigation/native";
 import { Link } from "expo-router";
 import React, { useEffect, useState } from "react";
@@ -13,8 +15,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const Home = () => {
   const { userInfo } = useUserContext();
-  const [account, setAccount] = useState({});
-  const [transactions, setTransactions] = useState([]);
+  const [account, setAccount] = useState<Account | null>(null);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const isFocused = useIsFocused();
 
   const fetchAccountData = async () => {
@@ -72,7 +74,7 @@ const Home = () => {
             <View className="w-full flex flex-row justify-between items-center">
               <Text className="font-light text-white text-lg">Account No.</Text>
               <Text className="text-lg text-white font-semibold">
-                {account?.account_no}
+                {account?.accountNo}
               </Text>
             </View>
           </View>

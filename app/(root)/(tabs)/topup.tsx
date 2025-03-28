@@ -5,6 +5,7 @@ import InputTransaction from "@/components/InputTransaction";
 import ModalSelect from "@/components/ModalSelect";
 import TrxModal from "@/components/TrxModal";
 import icons from "@/constants/icons";
+import { PaymentOptions } from "@/model/modal";
 import axios from "axios";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -19,7 +20,10 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
 
-const options = [{ name: "Byond PAY" }, { name: "Credit Card" }];
+const options: PaymentOptions[] = [
+  { name: "Byond PAY", value: "byond_pay" },
+  { name: "Credit Card", value: "credit_card" },
+];
 
 type TopUpData = {
   paymentMethod: string;
@@ -41,13 +45,7 @@ const Topup = () => {
 
   const [open, setOpen] = useState(false);
   const [topupTransfer, setTopupResponse] = useState({});
-  const [selectedValue, setSelectedValue] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
-
-  const handlePaymentSelect = (name: string) => {
-    setSelectedValue(name);
-    setModalVisible(false);
-  };
 
   const onSubmit = async (d: TopUpData) => {
     try {
@@ -123,6 +121,7 @@ const Topup = () => {
                 setModalVisible={setModalVisible}
                 options={options}
                 handleSelect={(selectedName) => onChange(selectedName)}
+                title="Pilih Metode Top Up :"
               />
 
               {errors.paymentMethod && (

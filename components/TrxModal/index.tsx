@@ -51,7 +51,7 @@ export default function TrxModal({
                 {data?.transactionId}
               </Text>
             </View>
-            {data?.acocuntFrom && (
+            {data?.accountFrom && (
               <View className="flex-row justify-between mb-4">
                 <Text className="text-md font-light">From</Text>
                 <Text className="text-md font-light">{data?.accountFrom}</Text>
