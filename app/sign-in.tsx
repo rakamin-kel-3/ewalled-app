@@ -74,6 +74,7 @@ export default function SignIn() {
               rules={{ required: "Email is required" }}
               render={({ field: { onChange, onBlur, value, ref } }) => (
                 <Input
+                  type="email-address"
                   secureTextEntry={false}
                   placeholder="Email"
                   value={value}
