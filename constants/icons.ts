@@ -5,6 +5,7 @@ import person from "@/assets/icons/person.png";
 import plus from "@/assets/icons/plus.png";
 import search from "@/assets/icons/search.png";
 import send from "@/assets/icons/send.png";
+import success from "@/assets/icons/success.png";
 
 export default {
   home,
@@ -14,4 +15,5 @@ export default {
   send,
   plus,
   chevrondown,
+  success,
 };

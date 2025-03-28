@@ -6,12 +6,18 @@ const ModalSelect = ({
   modalVisible,
   setModalVisible,
   handleSelect,
+  value,
 }: {
   options: ArrayLike<any>;
   modalVisible: boolean;
   setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
   handleSelect: (name: string) => void;
+  value: string;
 }) => {
+  const handleClick = (name: string) => {
+    handleSelect(name);
+    setModalVisible(false);
+  };
   return (
     <Modal
       visible={modalVisible}
@@ -31,7 +37,7 @@ const ModalSelect = ({
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
               <TouchableOpacity
-                onPress={() => handleSelect(item.name)}
+                onPress={() => handleClick(item.name)}
                 className="px-2 py-3 border-t border-[#E1E1E1]"
               >
                 <Text className="text-lg">{item.name}</Text>
