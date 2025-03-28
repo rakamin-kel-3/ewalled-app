@@ -7,7 +7,7 @@ const Button = ({
   classname,
   label,
 }: {
-  onPress: () => void;
+  onPress?: () => void;
   classname?: string;
   label: string;
 }) => {
