@@ -30,7 +30,7 @@ const Home = () => {
 
   const fetchTransactions = async () => {
     try {
-      const res = await getTransaction();
+      const res = await getTransaction(5);
       setTransactions(res.data.data);
     } catch (error) {
       console.log(error);

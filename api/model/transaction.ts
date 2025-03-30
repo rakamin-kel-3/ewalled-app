@@ -1,7 +1,7 @@
 import { coreApi } from "..";
 
-export const getTransaction = () => {
-  return coreApi.get("/transactions");
+export const getTransaction = (size: number) => {
+  return coreApi.get(`/transactions?size=${size}&sort=createdAt,desc`);
 };
 
 export const transfer = (receipentAccountNo, amount, notes) => {
