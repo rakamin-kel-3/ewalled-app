@@ -28,6 +28,7 @@ type TransferData = {
   receipentAccountNo: string;
   amount: number;
   notes?: string;
+  category: string;
 };
 
 const Profile = () => {
@@ -42,13 +43,19 @@ const Profile = () => {
   const [myAccount, setMyAccount] = useState<Account | null>(null);
   const [transferResponse, setTransferResponse] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
+  const [categoryModalVisible, setCategoryModalVisible] = useState(false);
   const [accounts, setAccounts] = useState<PaymentOptions[]>([]);
   const isFocused = useIsFocused();
   const router = useRouter();
 
   const onSubmit = async (d: TransferData) => {
     try {
-      const res = await transfer(d.receipentAccountNo, d.amount, d.notes);
+      const res = await transfer(
+        d.receipentAccountNo,
+        d.amount,
+        d.category,
+        d.notes
+      );
       setTransferResponse(res.data.data);
       setOpen(true);
       reset();
@@ -191,6 +198,45 @@ const Profile = () => {
                 value={value}
                 ref={ref}
               />
+            )}
+          />
+          <Controller
+            control={control}
+            name="category"
+            rules={{ required: "Category is required" }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <>
+                <TouchableOpacity
+                  className="bg-white px-7 py-6 mt-8 flex-row items-center justify-between"
+                  onPress={() => setCategoryModalVisible(true)}
+                >
+                  <Text className="text-lg">
+                    {value ? value : "Pilih Category"}
+                  </Text>
+                  <Image source={icons.chevrondown} />
+                </TouchableOpacity>
+
+                <ModalSelect
+                  value={value}
+                  modalVisible={categoryModalVisible}
+                  setModalVisible={setCategoryModalVisible}
+                  options={[
+                    { name: "Shopping", value: "shopping" },
+                    { name: "Food", value: "food" },
+                    { name: "Transport", value: "transport" },
+                    { name: "Hobbies", value: "hobbies" },
+                    { name: "Etc", value: "etc" },
+                  ]}
+                  handleSelect={(selectedName) => onChange(selectedName)}
+                  title="Pilih Category :"
+                />
+
+                {errors.category && (
+                  <Text className=" px-5 text-sm text-red-600">
+                    Category wajib diisi
+                  </Text>
+                )}
+              </>
             )}
           />
           <Button
