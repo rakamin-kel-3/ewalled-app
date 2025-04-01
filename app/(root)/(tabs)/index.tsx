@@ -8,9 +8,9 @@ import { useUserContext } from "@/context/userContext";
 import { Account } from "@/model/account";
 import { Transaction } from "@/model/transaction";
 import { useIsFocused } from "@react-navigation/native";
-import { Link } from "expo-router";
+import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { Image, ScrollView, Text, View } from "react-native";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const Home = () => {
@@ -18,6 +18,7 @@ const Home = () => {
   const [account, setAccount] = useState<Account | null>(null);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const isFocused = useIsFocused();
+  const router = useRouter();
 
   const fetchAccountData = async () => {
     try {
@@ -91,17 +92,20 @@ const Home = () => {
               </View>
               <View className="flex flex-col gap-y-3">
                 <View className="">
-                  <Link href="/topup" className="bg-primary-300 p-2 rounded-xl">
-                    <Image source={icons.plus} className="w-6 h-6" alt="plus" />
-                  </Link>
-                </View>
-                <View className="">
-                  <Link
-                    href="/transfer"
+                  <TouchableOpacity
+                    onPress={() => router.push("/topup")}
                     className="bg-primary-300 p-2 rounded-xl"
                   >
-                    <Image source={icons.send} className="w-6 h-6" alt="send" />
-                  </Link>
+                    <Image source={icons.plus} className="w-6 h-6" alt="plus" />
+                  </TouchableOpacity>
+                </View>
+                <View className="">
+                  <TouchableOpacity
+                    onPress={() => router.push("/transfer")}
+                    className="bg-primary-300 p-2 rounded-xl"
+                  >
+                    <Image source={icons.send} className="w-6 h-6" alt="plus" />
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>
@@ -117,7 +121,7 @@ const Home = () => {
                   images={images.profileBlank}
                   name={item.fromto}
                   inout={item.inout}
-                  type={item.type}
+                  type={item.type === "transfer" ? "Transfer" : "Top Up"}
                   date={item.createdAt}
                   amount={item.amount}
                 />
