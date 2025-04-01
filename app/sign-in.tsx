@@ -35,7 +35,7 @@ export default function SignIn() {
   const onSubmit = async (d: LoginFormData) => {
     try {
       const res = await loginUser(d.email, d.password);
-      login(res.data.data);
+      login(res.data.data.token, res.data.data.refreshToken);
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         const message =
