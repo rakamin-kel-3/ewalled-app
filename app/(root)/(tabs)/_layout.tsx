@@ -46,12 +46,12 @@ const TabsLayout = () => {
       }}
     >
       <Tabs.Screen
-        name="topup"
+        name="moneylogs"
         options={{
-          title: "Top Up",
+          title: "Logs",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={icons.plus} title="Top Up" />
+            <TabIcon focused={focused} icon={icons.moneylog} title="Logs" />
           ),
         }}
       />
@@ -66,12 +66,12 @@ const TabsLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="transfer"
+        name="graph"
         options={{
-          title: "Transfer",
+          title: "Graph",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={icons.send} title="Transfer" />
+            <TabIcon focused={focused} icon={icons.investment} title="Graph" />
           ),
         }}
       />
