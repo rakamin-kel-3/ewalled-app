@@ -4,11 +4,17 @@ export const getTransaction = (size: number) => {
   return coreApi.get(`/transactions?size=${size}&sort=createdAt,desc`);
 };
 
-export const transfer = (receipentAccountNo, amount, notes) => {
+export const transfer = (
+  receipentAccountNo: string,
+  amount: number,
+  category: string,
+  notes?: string
+) => {
   const param = {
     receipentAccountNo: receipentAccountNo,
     amount: amount,
     notes: notes,
+    category: category,
   };
   return coreApi.post("/transactions/transfer", param);
 };
