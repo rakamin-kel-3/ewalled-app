@@ -31,7 +31,7 @@ const TrxHistoryCard = ({
         <Image source={images} />
         <View>
           <Text className="text-lg">{name}</Text>
-          <Text>{type === "transfer" ? "Transfer" : "Top Up"}</Text>
+          <Text>{type}</Text>
           <Text className="text-sm text-[#939393]">
             {getFormattedDate(date)}
           </Text>
