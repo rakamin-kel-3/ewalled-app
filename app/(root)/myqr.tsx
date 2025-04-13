@@ -25,13 +25,15 @@ const MyQR = () => {
   }, []);
 
   return (
-    <SafeAreaView className="min-h-screen bg-[#0061FF]">
+    <SafeAreaView className="min-h-screen bg-[#1c3257]">
       <Header>
         <View className="flex flex-row items-center gap-x-4">
           <TouchableOpacity onPress={() => router.back()}>
             <Image source={icons.arrowback} style={{ width: 15, height: 15 }} />
           </TouchableOpacity>
-          <Text className="text-xl font-bold py-3 px-2">Scan QR Code</Text>
+          <Text className="text-xl font-bold py-3 px-2 dark:text-white">
+            Scan QR Code
+          </Text>
         </View>
       </Header>
       <View className="m-auto w-full px-10">
@@ -56,4 +58,3 @@ const MyQR = () => {
 };
 
 export default MyQR;
- 

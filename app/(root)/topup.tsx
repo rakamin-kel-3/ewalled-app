@@ -5,7 +5,7 @@ import InputTransaction from "@/components/InputTransaction";
 import ModalSelect from "@/components/ModalSelect";
 import TrxModal from "@/components/TrxModal";
 import icons from "@/constants/icons";
-import { PaymentOptions } from "@/model/modal";
+import { SelectOptions } from "@/model/modal";
 import axios from "axios";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
@@ -21,7 +21,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
 
-const options: PaymentOptions[] = [
+const options: SelectOptions[] = [
   { name: "Byond PAY", value: "byond_pay" },
   { name: "Credit Card", value: "credit_card" },
 ];
@@ -73,7 +73,7 @@ const Topup = () => {
   return (
     <>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <SafeAreaView className="bg-light-100 min-h-screen">
+        <SafeAreaView className="bg-light-100 dark:bg-black min-h-screen">
           <TrxModal
             open={open}
             setOpen={setOpen}
@@ -88,7 +88,9 @@ const Topup = () => {
                   style={{ width: 15, height: 15 }}
                 />
               </TouchableOpacity>
-              <Text className="text-xl font-bold py-3 px-2">Top Up</Text>
+              <Text className="dark:text-white text-xl font-bold py-3 px-2">
+                Top Up
+              </Text>
             </View>
           </Header>
           <View className="mt-10"></View>
@@ -119,10 +121,10 @@ const Topup = () => {
             render={({ field: { onChange, onBlur, value } }) => (
               <>
                 <TouchableOpacity
-                  className="bg-white px-7 py-6 mt-8 flex-row items-center justify-between"
+                  className="bg-white dark:bg-black-300 px-7 py-6 mt-8 flex-row items-center justify-between"
                   onPress={() => setModalVisible(true)}
                 >
-                  <Text className="text-lg">
+                  <Text className="text-lg dark:text-white">
                     {value ? value : "Pilih Metode"}
                   </Text>
                   <Image source={icons.chevrondown} />

@@ -9,6 +9,7 @@ import { Account } from "@/model/account";
 import { Transaction } from "@/model/transaction";
 import { useIsFocused } from "@react-navigation/native";
 import { useRouter } from "expo-router";
+import { useColorScheme } from "nativewind";
 import React, { useEffect, useState } from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -19,6 +20,7 @@ const Home = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const isFocused = useIsFocused();
   const router = useRouter();
+  const { colorScheme, setColorScheme } = useColorScheme();
 
   const fetchAccountData = async () => {
     try {
@@ -38,6 +40,23 @@ const Home = () => {
     }
   };
 
+  const getFormattedDate = (inp: string) => {
+    const date = new Date(inp);
+    return date.toLocaleString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
+  const formatToIDR = (amount: number) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      maximumFractionDigits: 0,
+    }).format(amount);
+  };
+
   useEffect(() => {
     if (isFocused) {
       fetchAccountData();
@@ -46,26 +65,39 @@ const Home = () => {
   }, [isFocused]);
 
   return (
-    <SafeAreaView className="bg-light-100 min-h-screen">
+    <SafeAreaView className="bg-light-100 dark:bg-black min-h-screen">
       <ScrollView contentContainerStyle={{ paddingBottom: 50 }}>
         <Header>
-          <View className="flex flex-row items-center gap-x-15">
-            <View>
-              <Image source={images.profile} width={60} />
+          <View className="flex flex-row justify-between items-center">
+            <View className="flex flex-row items-center gap-x-15">
+              <View>
+                <Image source={images.profile} width={60} />
+              </View>
+              <View className="ms-4">
+                <Text className="font-bold dark:text-white">
+                  {userInfo?.name}
+                </Text>
+                <Text className="dark:text-white">Personal Account</Text>
+              </View>
             </View>
-            <View className="ms-4">
-              <Text className="font-bold">{userInfo?.name}</Text>
-              <Text className="">Personal Account</Text>
+            <View>
+              <TouchableOpacity
+                onPress={() =>
+                  setColorScheme(colorScheme == "dark" ? "light" : "dark")
+                }
+              >
+                <Image source={icons.lightmode} />
+              </TouchableOpacity>
             </View>
           </View>
         </Header>
         <View className="px-5 mt-10">
           <View className="flex flex-row">
             <View className="flex-1">
-              <Text className="text-2xl font-bold mb-2">
+              <Text className="text-2xl font-bold mb-2 dark:text-white">
                 Good Morning, {userInfo?.name}
               </Text>
-              <Text className="text-lg font-light">
+              <Text className="text-lg font-light dark:text-white">
                 Check all your incoming and outgoing transactions here
               </Text>
             </View>
@@ -79,18 +111,23 @@ const Home = () => {
               </Text>
             </View>
           </View>
-          <View className="bg-white radius-md p-5 mt-6">
-            <View className="flex flex-row justify-between items-center">
+          <View className="bg-white dark:bg-black-300 rounded-xl p-5 mt-6">
+            <View className="flex flex-row justify-between">
               <View className="">
-                <Text className="text-lg font-light">Balance</Text>
+                <Text className="text-lg font-light dark:text-white">
+                  Balance
+                </Text>
                 <View className="flex flex-row items-center gap-x-2">
-                  <Text className="text-3xl font-semibold" id="balance">
+                  <Text
+                    className="text-3xl font-semibold dark:text-white"
+                    id="balance"
+                  >
                     Rp {account?.balance}
                   </Text>
                   <Image source={icons.eye} width={30} />
                 </View>
               </View>
-              <View className="flex flex-col gap-y-3">
+              <View className="flex flex-row gap-x-3 items-end">
                 <View className="">
                   <TouchableOpacity
                     onPress={() => router.push("/topup")}
@@ -107,12 +144,22 @@ const Home = () => {
                     <Image source={icons.send} className="w-6 h-6" alt="plus" />
                   </TouchableOpacity>
                 </View>
+                <View className="">
+                  <TouchableOpacity
+                    onPress={() => router.push("/qr")}
+                    className="bg-primary-300 p-2 rounded-xl"
+                  >
+                    <Image source={icons.qr} className="w-6 h-6" alt="plus" />
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           </View>
-          <View className="bg-white radius-md mt-5">
+          <View className="bg-white dark:bg-black-300 rounded-xl mt-5">
             <View className="p-5 border-b border-[#E5E5E5]">
-              <Text className="font-bold text-xl">Transaction History</Text>
+              <Text className="font-bold text-xl dark:text-white">
+                Transaction History
+              </Text>
             </View>
             <View className="gap-y-5 p-5">
               {transactions.slice(0, 5).map((item, key) => (
@@ -122,8 +169,8 @@ const Home = () => {
                   name={item.fromto}
                   inout={item.inout}
                   type={item.type === "transfer" ? "Transfer" : "Top Up"}
-                  date={item.createdAt}
-                  amount={item.amount}
+                  date={getFormattedDate(item.createdAt)}
+                  amount={formatToIDR(item.amount)}
                 />
               ))}
             </View>

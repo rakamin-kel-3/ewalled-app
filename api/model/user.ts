@@ -33,5 +33,5 @@ export const refreshToken = (refreshToken: string) => {
   const param = {
     refreshToken: refreshToken,
   };
-  return coreApi.post("/auth/refresh-token");
+  return coreApi.post("/auth/refresh-token", param);
 };

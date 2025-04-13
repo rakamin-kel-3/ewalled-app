@@ -57,7 +57,6 @@ const Qr = () => {
               barcodeTypes: ["qr"],
             }}
             style={{ flex: 1 }}
-            enableTorch={true}
             ratio="16:9"
           />
         </View>
@@ -80,4 +79,3 @@ const Qr = () => {
 };
 
 export default Qr;
- 

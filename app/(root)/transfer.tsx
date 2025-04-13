@@ -7,10 +7,10 @@ import ModalSelect from "@/components/ModalSelect";
 import TrxModal from "@/components/TrxModal";
 import icons from "@/constants/icons";
 import { Account } from "@/model/account";
-import { PaymentOptions } from "@/model/modal";
+import { SelectOptions } from "@/model/modal";
 import { useIsFocused } from "@react-navigation/native";
 import axios from "axios";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
@@ -31,20 +31,26 @@ type TransferData = {
   category: string;
 };
 
-const Profile = () => {
+const Transfer = () => {
+  const params = useLocalSearchParams();
+  const to = params.to as string;
   const {
     handleSubmit,
     formState: { errors },
     control,
     reset,
-  } = useForm<TransferData>();
+  } = useForm<TransferData>({
+    defaultValues: {
+      receipentAccountNo: to,
+    },
+  });
 
   const [open, setOpen] = useState(false);
   const [myAccount, setMyAccount] = useState<Account | null>(null);
   const [transferResponse, setTransferResponse] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
   const [categoryModalVisible, setCategoryModalVisible] = useState(false);
-  const [accounts, setAccounts] = useState<PaymentOptions[]>([]);
+  const [accounts, setAccounts] = useState<SelectOptions[]>([]);
   const isFocused = useIsFocused();
   const router = useRouter();
 
@@ -88,7 +94,7 @@ const Profile = () => {
       const res = await getListAccount();
       const resData: Account[] = res.data.data;
 
-      const accOpts: PaymentOptions[] = resData.map((acc) => ({
+      const accOpts: SelectOptions[] = resData.map((acc) => ({
         name: `${acc.accountNo} (${acc.name})`,
         value: acc.accountNo,
       }));
@@ -108,7 +114,7 @@ const Profile = () => {
   return (
     <>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <SafeAreaView className="bg-light-100 min-h-screen">
+        <SafeAreaView className="bg-light-100 dark:bg-black min-h-screen">
           <TrxModal
             open={open}
             setOpen={setOpen}
@@ -117,13 +123,20 @@ const Profile = () => {
           />
           <Header>
             <View className="flex flex-row items-center gap-x-4">
-              <TouchableOpacity onPress={() => router.back()}>
+              <TouchableOpacity
+                onPress={() => {
+                  reset();
+                  router.back();
+                }}
+              >
                 <Image
                   source={icons.arrowback}
                   style={{ width: 15, height: 15 }}
                 />
               </TouchableOpacity>
-              <Text className="text-xl font-bold py-3 px-2">Transfer</Text>
+              <Text className="text-xl font-bold py-3 px-2 dark:text-white">
+                Transfer
+              </Text>
             </View>
           </Header>
           <Controller
@@ -133,7 +146,7 @@ const Profile = () => {
             render={({ field: { onChange, onBlur, value } }) => (
               <>
                 <TouchableOpacity
-                  className="bg-[#0061FF] px-5 py-4 mb-7"
+                  className="bg-[#0061FF] dark:bg-black-200 px-5 py-4 mb-7"
                   onPress={() => setModalVisible(true)}
                 >
                   <Text className="text-white text-xl">
@@ -207,10 +220,10 @@ const Profile = () => {
             render={({ field: { onChange, onBlur, value } }) => (
               <>
                 <TouchableOpacity
-                  className="bg-white px-7 py-6 mt-8 flex-row items-center justify-between"
+                  className="bg-white dark:bg-black-300 px-7 py-6 mt-8 flex-row items-center justify-between"
                   onPress={() => setCategoryModalVisible(true)}
                 >
-                  <Text className="text-lg">
+                  <Text className="text-lg dark:text-white">
                     {value ? value : "Pilih Category"}
                   </Text>
                   <Image source={icons.chevrondown} />
@@ -250,4 +263,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Transfer;
