@@ -2,6 +2,7 @@ import { Tabs } from "expo-router";
 import { Image, ImageSourcePropType, Text, View } from "react-native";
 
 import icons from "@/constants/icons";
+import { useColorScheme } from "nativewind";
 
 const TabIcon = ({
   focused,
@@ -32,12 +33,13 @@ const TabIcon = ({
 );
 
 const TabsLayout = () => {
+  const { colorScheme } = useColorScheme();
   return (
     <Tabs
       screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: "white",
+          backgroundColor: colorScheme == "dark" ? "#272727" : "white",
           position: "absolute",
           borderTopColor: "#0061FF1A",
           borderTopWidth: 1,
