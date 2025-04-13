@@ -2,6 +2,7 @@ import { Tabs } from "expo-router";
 import { Image, ImageSourcePropType, Text, View } from "react-native";
 
 import icons from "@/constants/icons";
+import { useColorScheme } from "nativewind";
 
 const TabIcon = ({
   focused,
@@ -32,12 +33,13 @@ const TabIcon = ({
 );
 
 const TabsLayout = () => {
+  const { colorScheme } = useColorScheme();
   return (
     <Tabs
       screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: "white",
+          backgroundColor: colorScheme == "dark" ? "#272727" : "white",
           position: "absolute",
           borderTopColor: "#0061FF1A",
           borderTopWidth: 1,
@@ -46,12 +48,12 @@ const TabsLayout = () => {
       }}
     >
       <Tabs.Screen
-        name="topup"
+        name="moneylogs"
         options={{
-          title: "Top Up",
+          title: "Logs",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={icons.plus} title="Top Up" />
+            <TabIcon focused={focused} icon={icons.moneylog} title="Logs" />
           ),
         }}
       />
@@ -66,12 +68,12 @@ const TabsLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="transfer"
+        name="graph"
         options={{
-          title: "Transfer",
+          title: "Graph",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={icons.send} title="Transfer" />
+            <TabIcon focused={focused} icon={icons.investment} title="Graph" />
           ),
         }}
       />
