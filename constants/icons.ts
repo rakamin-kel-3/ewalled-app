@@ -9,6 +9,7 @@ import plus from "@/assets/icons/plus.png";
 import search from "@/assets/icons/search.png";
 import send from "@/assets/icons/send.png";
 import success from "@/assets/icons/success.png";
+import x from "@/assets/icons/x.png";
 
 export default {
   home,
@@ -22,4 +23,5 @@ export default {
   moneylog,
   investment,
   arrowback,
+  x
 };
