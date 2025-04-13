@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://192.168.18.93:8080";
+const BASE_URL = "https://fulusku-api.kobulwidodo.my.id";
 
 export default axios.create({
   baseURL: BASE_URL,
