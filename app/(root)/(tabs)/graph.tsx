@@ -148,7 +148,7 @@ const Graph = () => {
                   }))}
                   style={{
                     labels: {
-                      fill: "white",
+                      fill: colorScheme == "dark" ? "white" : "black",
                     },
                   }}
                   theme={VictoryTheme.clean}
@@ -160,7 +160,7 @@ const Graph = () => {
                     fontSize: 16,
                     fontWeight: 700,
                     fontFamily: "Open-sans",
-                    fill: "white",
+                    fill: colorScheme == "dark" ? "white" : "black",
                   }}
                   x={200}
                   y={190}
@@ -171,7 +171,7 @@ const Graph = () => {
                   style={{
                     fontSize: 12,
                     fontFamily: "Open-sans",
-                    fill: "white",
+                    fill: colorScheme == "dark" ? "white" : "black",
                   }}
                   x={200}
                   y={210}

@@ -101,7 +101,10 @@ const Home = () => {
                 Check all your incoming and outgoing transactions here
               </Text>
             </View>
-            <Image source={images.sun} className="me-2" />
+            <Image
+              source={colorScheme == "dark" ? images.moon : images.sun}
+              className="me-2"
+            />
           </View>
           <View className="p-4 bg-primary-300 rounded-2xl items-center mt-8">
             <View className="w-full flex flex-row justify-between items-center">
